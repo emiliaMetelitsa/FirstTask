@@ -26,6 +26,10 @@ int main() {
 		v[i]->Print();
 	}
 
+	for (int i = 0; i < size(v); i++) {
+		delete[] v[i];
+	}
+
 	v.erase(v.begin(), v.end());
 
 
