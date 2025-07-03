@@ -22,12 +22,13 @@ struct coords {
 int Sum(int a) {
 
 	int sum = 0;
-	
+
 	while (a / 10 > 0) {
 		sum += a % 10;
 		a /= 10;
 	}
-	
+	sum += a % 10;
+
 	return sum;
 }
 
@@ -39,32 +40,32 @@ bool IsAvaible(int x, int y) {
 	return false;
 }
 
-int Finding(int x, int y) {
+int Finding(unsigned int coord1, unsigned int coord2) {
 
 	set<coords> visited;
 	list<coords> q;
 	
 
-	unsigned int i = x;
-	unsigned int j = y;
+	unsigned int i = coord1;
+	unsigned int j = coord2;
 
 	q.push_back({ i,j });
 
 	while (!q.empty()) {
 
-		if (!visited.contains({ i, j })) {
+		if (!visited.count({ i, j })) {
 
-			if ((i < 1000) && (IsAvaible(i + 1, j))) {
+			if ((IsAvaible(i + 1, j))) {
 				q.push_back({ i + 1,j });
 			}
-			if ((j < 1000) && (IsAvaible(i, j + 1))) {
+			if ((IsAvaible(i, j + 1))) {
 				q.push_back({ i,j + 1 });
 			}
-			if ((i > 0) && (IsAvaible(i - 1, j))) {
+			if ((i - 1 >= 0) && (IsAvaible(i - 1, j))) {
 				q.push_back({ i - 1,j });
 			}
-			if ((j > 0) && (IsAvaible(i, j + 1))) {
-				q.push_back({ i,j + 1 });
+			if ((j - 1 >= 0) && (IsAvaible(i, j - 1))) {
+				q.push_back({ i,j - 1 });
 			}
 
 		}
@@ -73,9 +74,8 @@ int Finding(int x, int y) {
 		q.pop_front();
 
 		if (!q.empty()) {
-			coords a = q.front();
-			i = a.x;
-			j = a.y;
+			i = q.front().x;
+			j = q.front().y;
 		}
 
 	}
